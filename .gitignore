@@ -91,7 +91,6 @@ android/key.properties
 **/ios/Runner/GeneratedPluginRegistrant.*
 
 # Web related
-lib/generated_plugin_registrant.dart
 
 # macOS
 **/macos/Flutter/GeneratedPluginRegistrant.swift
