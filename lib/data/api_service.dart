@@ -1,16 +1,20 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:js' as js;
 
 class ApiService {
   final Dio _dio = Dio();
   final String _baseUrl = 'https://csp.perfectlaser.co.za/api/clientapi';
   
-  // Basic Auth credentials would typically be stored securely or retrieved from environment variables
-  // For this example, they are hardcoded
-  final String _username = 'apiuser';
-  final String _password = 'apipassword';
+  // Basic Auth credentials
+  final String _username;
+  final String _password;
 
-  ApiService() {
+  ApiService({String? username, String? password}) : 
+    _username = username ?? 'apiuser',  // Replace 'apiuser' with your actual username
+    _password = password ?? 'apipassword' {  // Replace 'apipassword' with your actual password
+    
     _dio.options.connectTimeout = const Duration(seconds: 30);
     _dio.options.receiveTimeout = const Duration(seconds: 30);
     _dio.options.validateStatus = (status) {

@@ -6,4 +6,20 @@
 
 [build]
   command = "flutter build web --release"
-  publish = "build/web" 
+  publish = "build/web"
+
+# Add post-processing for environment variables
+[build.processing]
+  skip_processing = false
+[build.processing.html]
+  pretty_urls = true
+[build.processing.js]
+  bundle = false
+  minify = false
+[build.processing.css]
+  bundle = false
+  minify = false
+
+# Process environment variables in JS files
+[[plugins]]
+package = "@netlify/plugin-functions-core" 
