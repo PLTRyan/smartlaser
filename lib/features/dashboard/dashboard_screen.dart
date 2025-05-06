@@ -42,7 +42,7 @@ class DashboardScreen extends ConsumerWidget {
           children: [
             _buildCustomerInfoCard(customer),
             const SizedBox(height: 24),
-            _buildSummaryGrid(customer),
+            _buildSummaryGrid(customer, context),
             const SizedBox(height: 24),
             _buildRecentActivityList(customer),
           ],
@@ -155,7 +155,7 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSummaryGrid(Customer customer) {
+  Widget _buildSummaryGrid(Customer customer, BuildContext context) {
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -163,69 +163,35 @@ class DashboardScreen extends ConsumerWidget {
       crossAxisSpacing: 16,
       mainAxisSpacing: 16,
       children: [
-        _buildSummaryCard(
+        DashboardCard(
           title: 'Machines',
           count: customer.machines.length,
           icon: Icons.precision_manufacturing,
           color: Colors.blue,
+          onTap: () => context.go('/dashboard/machines'),
         ),
-        _buildSummaryCard(
+        DashboardCard(
           title: 'Open Tickets',
           count: customer.tickets.where((t) => t.status == 'In Progress').length,
           icon: Icons.support_agent,
           color: Colors.orange,
+          onTap: () => context.go('/dashboard/tickets'),
         ),
-        _buildSummaryCard(
+        DashboardCard(
           title: 'Support Requests',
           count: customer.quickSupports.length,
           icon: Icons.headset_mic,
           color: Colors.purple,
+          onTap: () => context.go('/dashboard/tickets'), // Adjust route if needed
         ),
-        _buildSummaryCard(
+        DashboardCard(
           title: 'Notifications',
           count: customer.notifications.length,
           icon: Icons.notifications,
           color: Colors.green,
+          onTap: () => context.go('/dashboard/notifications'),
         ),
       ],
-    );
-  }
-
-  Widget _buildSummaryCard({
-    required String title,
-    required int count,
-    required IconData icon,
-    required Color color,
-  }) {
-    return Card(
-      elevation: 3,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 40, color: color),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              count.toString(),
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -303,6 +269,94 @@ class DashboardScreen extends ConsumerWidget {
             },
           ),
       ],
+    );
+  }
+}
+
+class DashboardCard extends StatefulWidget {
+  final IconData icon;
+  final String title;
+  final int count;
+  final Color color;
+  final VoidCallback onTap;
+
+  const DashboardCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.count,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  State<DashboardCard> createState() => _DashboardCardState();
+}
+
+class _DashboardCardState extends State<DashboardCard> {
+  bool _hovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovering = true),
+      onExit: (_) => setState(() => _hovering = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.easeInOut,
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor.withOpacity(_hovering ? 0.95 : 1.0),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: _hovering
+                ? [
+                    BoxShadow(
+                      color: widget.color.withOpacity(0.25),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.08),
+                      blurRadius: 6,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+            border: Border.all(
+              color: _hovering ? widget.color : Colors.transparent,
+              width: 1.5,
+            ),
+          ),
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(widget.icon, size: 40, color: widget.color),
+              const SizedBox(height: 12),
+              Text(
+                widget.title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                widget.count.toString(),
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: widget.color,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 } 

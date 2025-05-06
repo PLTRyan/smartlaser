@@ -54,15 +54,22 @@ class ApiService {
         return _getMockCustomerData();
       }
       
+      // Use CORS proxy for local development
+      const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+      final isLocal = !bool.fromEnvironment('dart.vm.product');
+      final apiUrl = isLocal
+          ? '$corsProxy$_baseUrl/returncustomers'
+          : '$_baseUrl/returncustomers';
+
       final response = await _dio.get(
-        '$_baseUrl/returncustomers',
+        apiUrl,
         queryParameters: {'email': email},
       );
       
       if (response.statusCode == 200) {
         return response.data as Map<String, dynamic>;
       } else {
-        throw Exception('Failed to load customer data: ${response.statusCode}');
+        throw Exception('Failed to load customer data: {response.statusCode}');
       }
     } catch (e) {
       print('Error fetching customer data: $e');

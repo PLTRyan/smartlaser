@@ -24,19 +24,169 @@ class SmartLaserApp extends ConsumerWidget {
       title: 'Smart Laser',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
+          seedColor: Colors.redAccent,
           brightness: Brightness.light,
+          primary: Colors.redAccent,
+          secondary: Colors.amberAccent,
+          background: Colors.white,
+          surface: Colors.white,
         ),
         useMaterial3: true,
+        fontFamily: 'Roboto',
+        scaffoldBackgroundColor: Colors.white,
+        cardTheme: CardTheme(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          margin: const EdgeInsets.symmetric(vertical: 8),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          filled: true,
+          fillColor: Colors.grey[50],
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            elevation: 2,
+            padding: const EdgeInsets.symmetric(vertical: 18),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+        ),
+        dropdownMenuTheme: DropdownMenuThemeData(
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            filled: true,
+            fillColor: Colors.grey[50],
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black87,
+          elevation: 1,
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+            color: Colors.black87,
+          ),
+        ),
       ),
       darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
+        colorScheme: ColorScheme(
           brightness: Brightness.dark,
+          primary: Color(0xFF2374E1), // Facebook blue
+          onPrimary: Color(0xFFE4E6EB),
+          secondary: Color(0xFF2374E1),
+          onSecondary: Color(0xFFE4E6EB),
+          background: Color(0xFF18191A),
+          onBackground: Color(0xFFE4E6EB),
+          surface: Color(0xFF242526),
+          onSurface: Color(0xFFE4E6EB),
+          error: Colors.red,
+          onError: Colors.white,
         ),
         useMaterial3: true,
+        fontFamily: 'Roboto',
+        scaffoldBackgroundColor: Color(0xFF18191A),
+        cardTheme: CardTheme(
+          color: Color(0xFF242526),
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(color: Color(0xFF3E4042)),
+          ),
+          margin: const EdgeInsets.symmetric(vertical: 8),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Color(0xFF3E4042)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Color(0xFF3E4042)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Color(0xFF2374E1), width: 2),
+          ),
+          filled: true,
+          fillColor: Color(0xFF3A3B3C),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          hintStyle: TextStyle(color: Color(0xFFB0B3B8)),
+          labelStyle: TextStyle(color: Color(0xFFB0B3B8)),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFF3A3B3C),
+            foregroundColor: Color(0xFFE4E6EB),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            elevation: 2,
+            padding: const EdgeInsets.symmetric(vertical: 18),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: Color(0xFF2374E1),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          ),
+        ),
+        dropdownMenuTheme: DropdownMenuThemeData(
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: Color(0xFF3E4042)),
+            ),
+            filled: true,
+            fillColor: Color(0xFF3A3B3C),
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF242526),
+          foregroundColor: Color(0xFFE4E6EB),
+          elevation: 1,
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+            color: Color(0xFFE4E6EB),
+          ),
+        ),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(color: Color(0xFFE4E6EB)),
+          bodyMedium: TextStyle(color: Color(0xFFE4E6EB)),
+          bodySmall: TextStyle(color: Color(0xFFB0B3B8)),
+          titleLarge: TextStyle(color: Color(0xFFE4E6EB)),
+          titleMedium: TextStyle(color: Color(0xFFE4E6EB)),
+          titleSmall: TextStyle(color: Color(0xFFB0B3B8)),
+        ),
       ),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       routerConfig: router,
     );
   }
