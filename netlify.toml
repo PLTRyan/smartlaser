@@ -1,8 +1,0 @@
-[build]
-  publish = "build/web"
-  command = "flutter build web --release"
-
-[[plugins]]
-  package = "@aloisdeniel/netlify-build-plugin-flutter"
-  [plugins.inputs]
-    flutter_version = "3.22.1" 
